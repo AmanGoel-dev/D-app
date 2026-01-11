@@ -1,25 +1,19 @@
 // Navbar.jsx
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useBalance } from "@/context/Balancecontext";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { use, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function Navbar() {
-  const [balance, setBalance] = useState<Number>(0.0);
+  const { connected } = useWallet();
+  const { balance, fetchBalance } = useBalance();
   const wallet = useWallet();
-  const { connection } = useConnection();
+
   useEffect(() => {
-    const fetchbalance = async () => {
-      if (wallet.publicKey && wallet.connected) {
-        const bal = await connection.getBalance(wallet.publicKey);
-        setBalance(bal / 1e9);
-      }
-      if (!wallet.connected) {
-        setBalance(0.0);
-      }
-    };
-    fetchbalance();
-  }, [wallet.publicKey]);
+    if (wallet.publicKey && wallet.connected) {
+      fetchBalance();
+    }
+  }, [connected, fetchBalance]);
 
   return (
     <nav className="w-full bg-black border-b border-gray-800 px-6 py-4">
@@ -34,7 +28,9 @@ export default function Navbar() {
             className="px-4 py-2 rounded-lg text-sm font-medium 
             bg-gray-900 text-gray-200 hover:bg-gray-800 transition"
           >
-            {`Balance: ${balance} SOL`}
+            {connected && balance !== null && (
+              <span className=" text-green-400">{balance.toFixed(3)} SOL</span>
+            )}
           </div>
 
           <button

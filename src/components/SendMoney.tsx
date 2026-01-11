@@ -13,11 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import toast from "react-hot-toast";
+import { useBalance } from "@/context/Balancecontext";
 
 const SendMoney = () => {
   const wallet = useWallet();
   const { connection } = useConnection();
-
+  const { fetchBalance } = useBalance();
   async function sendSol() {
     if (!wallet.publicKey) {
       toast.error("Please connect your wallet");
@@ -38,6 +39,7 @@ const SendMoney = () => {
     if (val.value.err) {
       toast.error("Transaction failed");
     }
+    await fetchBalance();
     toast.success("Transaction successful");
   }
 

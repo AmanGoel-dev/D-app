@@ -16,10 +16,11 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import Layout from "./components/Layout";
-import Balance from "./components/Balance";
+
 import SendMoney from "./components/SendMoney";
 import Sign from "./components/Sign";
 import { Toaster } from "react-hot-toast";
+import { BalanceProvider } from "./context/Balancecontext";
 
 function App() {
   const router = createBrowserRouter(
@@ -39,10 +40,12 @@ function App() {
       <ConnectionProvider endpoint={"https://api.devnet.solana.com"}>
         <WalletProvider wallets={[]} autoConnect>
           <WalletModalProvider>
-            <div className="">
-              <Toaster position="top-center" />
-              <RouterProvider router={router} />
-            </div>
+            <BalanceProvider>
+              <div className="">
+                <Toaster position="top-center" />
+                <RouterProvider router={router} />
+              </div>
+            </BalanceProvider>
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>
