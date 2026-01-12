@@ -26,12 +26,14 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <div
-            className="px-4 py-2 rounded-lg text-sm font-medium 
-            bg-gray-900 text-gray-200 hover:bg-gray-800 transition"
-          >
+          <div className="">
             {connected && balance !== null && (
-              <span className=" text-green-400">{balance.toFixed(3)} SOL</span>
+              <span
+                className=" px-4 py-2 rounded-lg text-sm font-medium 
+            bg-gray-900  hover:bg-gray-800 transition text-green-400"
+              >
+                {balance.toFixed(3)} SOL
+              </span>
             )}
           </div>
 
