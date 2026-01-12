@@ -1,14 +1,6 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import React, { useState } from "react";
+
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const Drop = () => {
